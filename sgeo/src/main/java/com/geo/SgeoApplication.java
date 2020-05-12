@@ -2,7 +2,7 @@
  * Copyright (c) 2020, Sergey Petrov
  */
 
-package com.geo.rest.sgeo;
+package com.geo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +20,6 @@ public class SgeoApplication {
     @Bean
     public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
     webServerFactoryCustomizer() {
-        return factory -> factory.setContextPath("/geo");
+        return factory -> factory.setContextPath("/v1/geo");
     }
 }

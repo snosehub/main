@@ -2,9 +2,9 @@
  * Copyright (c) 2020, Sergey Petrov
  */
 
-package com.geo.rest.sgeo.storage;
+package com.geo.storage;
 
-import com.geo.rest.sgeo.storage.model.City;
+import com.geo.storage.model.City;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,13 +18,18 @@ public interface CityRepository extends JpaRepository<City, Long> {
                                               @Param("name") String name,
                                               @Param("countryCode") String countryCode);
 
+    @Query(value = "SELECT u FROM City u WHERE u.name LIKE :name AND  u.country.name LIKE :countryName")
+    Page<City> findCitiesByNameAndByCountryName(Pageable pageable,
+                                                @Param("name") String name,
+                                                @Param("countryName") String countryName);
+
     @Query(value = "SELECT u FROM City u WHERE u.name LIKE :name")
-    Page<City> findCitiesByNameA(Pageable pageable,
-                                              @Param("name") String name);
+    Page<City> findCitiesByName(Pageable pageable,
+                                @Param("name") String name);
 
     @Query(value = "SELECT u FROM City u WHERE u.country.id = :countryCode")
     Page<City> findCitiesByCountryCode(Pageable pageable,
-                                              @Param("countryCode") String countryCode);
+                                       @Param("countryCode") String countryCode);
 
     @Query(value = "SELECT u FROM City u WHERE u.country.name LIKE :countryName")
     Page<City> findCitiesByCountryName(Pageable pageable,

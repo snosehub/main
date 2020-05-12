@@ -2,7 +2,7 @@
  * Copyright (c) 2020, Sergey Petrov
  */
 
-package com.geo.rest.sgeo.storage.model;
+package com.geo.storage.model;
 
 import lombok.Data;
 

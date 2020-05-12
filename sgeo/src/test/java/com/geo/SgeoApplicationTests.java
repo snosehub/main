@@ -2,10 +2,10 @@
  * Copyright (c) 2020, Sergey Petrov
  */
 
-package com.geo.rest.sgeo;
+package com.geo;
 
-import com.geo.rest.sgeo.storage.CityRepository;
-import com.geo.rest.sgeo.storage.model.City;
+import com.geo.storage.CityRepository;
+import com.geo.storage.model.City;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +38,7 @@ class SgeoApplicationTests {
                 + " in Ru should be 1 but is " + cities.getTotalElements());
         City city = cities.iterator().next();
         log.info(TEST_CITY + ": " + city.toString());
-        Assert.isTrue((city.getPopulation() < TEST_POPULATION || !TEST_COUNTRY.equals(city.getCountry().getName())),
+        Assert.isTrue((city.getPopulation() > TEST_POPULATION && TEST_COUNTRY.equals(city.getCountry().getName())),
                 "Something is wrong, population should be >= "
                         + TEST_POPULATION + " and country should be " + TEST_COUNTRY + " but: "
                         + city.getCountry().getName());
