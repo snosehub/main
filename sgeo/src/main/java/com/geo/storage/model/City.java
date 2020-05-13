@@ -7,6 +7,7 @@ package com.geo.storage.model;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,8 +21,10 @@ public class City {
 
     private String name;
 
+    @Column(precision = 10, scale = 5)
     private BigDecimal longitude;
 
+    @Column(precision = 10, scale = 5)
     private BigDecimal latitude;
 
     private long population;

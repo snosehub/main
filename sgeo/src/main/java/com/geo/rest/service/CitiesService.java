@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 @Component
 public class CitiesService {
 
+    private  static final int DEFAULT_PAGE = 0;
+    private static  final int DEFAULT_SIZE = 2;
+
     private final CityRepository cityRepository;
 
     public CitiesService(CityRepository cityRepository) {
@@ -36,7 +39,8 @@ public class CitiesService {
             Sort sort = query.getSorting() == null
                     ? Sort.unsorted() : Sort.by(query.getSorting().getSortDirection(), query.getSorting().getSortBy());
             Pageable pageable = query.getPage() == null
-                    ? Pageable.unpaged() : PageRequest.of(query.getPage().getPage(), query.getPage().getLimit(), sort);
+                    ? PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, sort)
+                    : PageRequest.of(query.getPage().getPage(), query.getPage().getLimit(), sort);
             if (query.getCityName() == null) {
                 if (query.getCountryCode() != null) {
                     citiesPage = cityRepository.findCitiesByCountryCode(pageable, query.getCountryCode());
