@@ -24,6 +24,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.Assert;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @Slf4j
@@ -104,11 +109,8 @@ public class CitiesResourceTest {
         Assert.isTrue(!foundCities.getItems().get(0).equals(foundCities2.getItems().get(0)),
                 "Suspicious similar first element with sorting and without");
         //check it's ordered by population
-        foundCities2.getItems().stream().reduce(foundCities2.getItems().get(0), (city, city2) -> {
-            Assert.isTrue(city2.getPopulation() >= city.getPopulation(),
-                    "Cities aren't ordered by population: " + city2 + " after " + city);
-            return city2;
-        });
+        Assert.isTrue(isSortedAsc(foundCities2.getItems(), com.geo.rest.model.geo.City::getPopulation),
+                "Cities aren't ordered by population");
     }
 
     @Test
@@ -148,11 +150,8 @@ public class CitiesResourceTest {
                         + " (different count for different ordering");
         Assert.isTrue(!foundCities2.isHasNext(), "There shouldn't be more pages");
         //check it's ordered by country name
-        foundCities2.getItems().stream().reduce(foundCities2.getItems().get(0), (city, city2) -> {
-            Assert.isTrue(city2.getCountry().getName().compareTo(city.getCountry().getName()) >= 0,
-                    "Cities aren't ordered by country name: " + city2 + " after " + city);
-            return city2;
-        });
+        Assert.isTrue(isSortedAsc(foundCities2.getItems(), c->c.getCountry().getName()),
+                "Cities aren't ordered by country nae");
     }
 
     @Test
@@ -194,10 +193,25 @@ public class CitiesResourceTest {
     private ResultActions performQuery(Query query) throws Exception {
         return mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post(CitiesResource.URI_SEARCH)
+                        .post(URI_SEARCH)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(query))
         );
+    }
+
+    private boolean isSortedAsc(List<com.geo.rest.model.geo.City> cities,
+                                Function<com.geo.rest.model.geo.City, Comparable> mapper) {
+        Comparable prev = null;
+        for (com.geo.rest.model.geo.City city: cities) {
+            Comparable el = mapper.apply(city);
+            if (prev != null) {
+                if (el.compareTo(prev) == -1) {
+                    return false;
+                }
+            }
+            prev = el;
+        }
+        return true;
     }
 }
