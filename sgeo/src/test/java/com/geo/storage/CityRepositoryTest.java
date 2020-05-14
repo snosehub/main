@@ -2,7 +2,7 @@
  * Copyright (c) 2020, Sergey Petrov
  */
 
-package com.geo;
+package com.geo.storage;
 
 import com.geo.storage.CityRepository;
 import com.geo.storage.model.City;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 @SpringBootTest
 @Slf4j
-class SgeoApplicationTests {
+class CityRepositoryTest {
 
     private static final long TEST_POPULATION = 10_000_000;
     private static final String TEST_COUNTRY_CODE = "RU";

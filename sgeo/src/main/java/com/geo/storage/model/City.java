@@ -32,4 +32,24 @@ public class City {
     @ManyToOne
     @JoinColumn(name = "COUNTRY_CODE", referencedColumnName = "ID")
     private Country country;
+
+    public enum CityField {
+        ID("id"),
+        NAME("name"),
+        LONGITUDE("longitude"),
+        LATITUDE("latitude"),
+        POPULATION("population"),
+        COUNTRY_CODE("country.id"),
+        COUNTRY_NAME("country.name");
+
+        private final String entityField;
+
+        CityField(String entityField) {
+            this.entityField = entityField;
+        }
+
+        public String getEntityField() {
+            return entityField;
+        }
+    }
 }

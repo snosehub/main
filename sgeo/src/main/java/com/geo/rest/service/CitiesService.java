@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class CitiesService {
 
     private  static final int DEFAULT_PAGE = 0;
-    private static  final int DEFAULT_SIZE = 2;
+    public static  final int DEFAULT_SIZE = 2;
 
     private final CityRepository cityRepository;
 
@@ -37,29 +37,21 @@ public class CitiesService {
         Page<com.geo.storage.model.City> citiesPage;
         if (query != null) {
             Sort sort = query.getSorting() == null
-                    ? Sort.unsorted() : Sort.by(query.getSorting().getSortDirection(), query.getSorting().getSortBy());
+                    ? Sort.unsorted()
+                    : Sort.by(query.getSorting().getSortDirection(), query.getSorting().getSortBy().getEntityField());
             Pageable pageable = query.getPage() == null
                     ? PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, sort)
                     : PageRequest.of(query.getPage().getPage(), query.getPage().getLimit(), sort);
-            if (query.getCityName() == null) {
-                if (query.getCountryCode() != null) {
-                    citiesPage = cityRepository.findCitiesByCountryCode(pageable, query.getCountryCode());
-                } else {
-                    citiesPage = cityRepository.findCitiesByCountryName(pageable, query.getCountryName());
-                }
+            String countryCode = query.getCountryCode();
+            if (countryCode != null) {
+                citiesPage = cityRepository
+                        .findCitiesByNameAndCountryCode(pageable, query.getCityName(), query.getCountryCode());
             } else {
-                if (query.getCountryCode() == null && query.getCountryName() == null) {
-                    citiesPage = cityRepository.findCitiesByName(pageable, query.getCityName());
-                } else if (query.getCountryCode() != null) {
-                    citiesPage = cityRepository
-                            .findCitiesByNameAndCountryCode(pageable, query.getCityName(), query.getCountryCode());
-                } else {
-                    citiesPage = cityRepository
-                            .findCitiesByNameAndByCountryName(pageable, query.getCityName(), query.getCountryName());
-                }
+                citiesPage = cityRepository
+                        .findCitiesByNameAndByCountryName(pageable, query.getCityName(), query.getCountryName());
             }
         } else {
-            citiesPage = cityRepository.findAll(PageRequest.of(0, 10));
+            citiesPage = cityRepository.findAll(PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE));
         }
         ret.setHasNext(citiesPage.hasNext());
         ret.setItems(citiesPage.get().map(City::new).collect(Collectors.toList()));

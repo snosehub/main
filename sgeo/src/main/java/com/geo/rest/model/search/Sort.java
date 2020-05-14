@@ -4,15 +4,16 @@
 
 package com.geo.rest.model.search;
 
+import com.geo.storage.model.City;
 import lombok.Data;
 import org.springframework.data.domain.Sort.Direction;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class Sort {
-    @NotBlank
-    private String sortBy;
+    @NotNull
+    private City.CityField sortBy = City.CityField.ID;
 
     private Direction sortDirection = Direction.ASC;
 }

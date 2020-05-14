@@ -13,25 +13,18 @@ import org.springframework.data.repository.query.Param;
 
 public interface CityRepository extends JpaRepository<City, Long> {
 
-    @Query(value = "SELECT u FROM City u WHERE u.name LIKE :name AND u.country.id = :countryCode")
+    @Query(value = "SELECT u FROM City u "
+            + "WHERE "
+            + "(:name is null or lower(u.name) LIKE lower(:name)) AND u.country.id = :countryCode")
     Page<City> findCitiesByNameAndCountryCode(Pageable pageable,
                                               @Param("name") String name,
                                               @Param("countryCode") String countryCode);
 
-    @Query(value = "SELECT u FROM City u WHERE u.name LIKE :name AND  u.country.name LIKE :countryName")
+    @Query(value = "SELECT u FROM City u "
+            + "WHERE "
+            + "(:name is null OR lower(u.name) LIKE lower(:name)) "
+            + "AND (:countryName is null OR lower(u.country.name) LIKE lower(:countryName))")
     Page<City> findCitiesByNameAndByCountryName(Pageable pageable,
                                                 @Param("name") String name,
                                                 @Param("countryName") String countryName);
-
-    @Query(value = "SELECT u FROM City u WHERE u.name LIKE :name")
-    Page<City> findCitiesByName(Pageable pageable,
-                                @Param("name") String name);
-
-    @Query(value = "SELECT u FROM City u WHERE u.country.id = :countryCode")
-    Page<City> findCitiesByCountryCode(Pageable pageable,
-                                       @Param("countryCode") String countryCode);
-
-    @Query(value = "SELECT u FROM City u WHERE u.country.name LIKE :countryName")
-    Page<City> findCitiesByCountryName(Pageable pageable,
-                                       @Param("countryName") String countryName);
 }

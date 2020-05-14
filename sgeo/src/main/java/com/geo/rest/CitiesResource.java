@@ -8,7 +8,6 @@ import com.geo.rest.model.geo.Cities;
 import com.geo.rest.model.geo.City;
 import com.geo.rest.model.search.Query;
 import com.geo.rest.service.CitiesService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

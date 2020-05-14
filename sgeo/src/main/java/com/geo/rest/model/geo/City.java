@@ -4,7 +4,6 @@
 
 package com.geo.rest.model.geo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,8 +11,7 @@ import java.math.BigDecimal;
 @Data
 public class City {
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private int id;
+    private long id;
     private String name;
     private Country country;
     private BigDecimal longitude;
@@ -24,6 +22,7 @@ public class City {
     }
 
     public City(com.geo.storage.model.City city) {
+        this.id = city.getId();
         this.country = new Country(city.getCountry());
         this.name = city.getName();
         this.longitude = city.getLongitude();

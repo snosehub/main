@@ -12,7 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Data
 public class Page {
     @PositiveOrZero
-    private Integer page;
+    private Integer page = 0;
     @Positive
     private Integer limit;
 }
