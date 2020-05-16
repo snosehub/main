@@ -4,14 +4,18 @@
 
 package com.geo.rest.model.geo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Schema(name = "City")
 public class City {
 
+    @Schema(name = "Geo id", type = "integer")
     private long id;
+
     private String name;
     private Country country;
     private BigDecimal longitude;
