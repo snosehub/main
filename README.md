@@ -1,3 +1,3 @@
-See spcific README for each project.
+See specific READMEs for each project.
 projects:
  - sgeo
