@@ -26,8 +26,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -150,7 +148,7 @@ public class CitiesResourceTest {
                         + " (different count for different ordering");
         Assert.isTrue(!foundCities2.isHasNext(), "There shouldn't be more pages");
         //check it's ordered by country name
-        Assert.isTrue(isSortedAsc(foundCities2.getItems(), c->c.getCountry().getName()),
+        Assert.isTrue(isSortedAsc(foundCities2.getItems(), c -> c.getCountry().getName()),
                 "Cities aren't ordered by country nae");
     }
 
@@ -203,7 +201,7 @@ public class CitiesResourceTest {
     private boolean isSortedAsc(List<com.geo.rest.model.geo.City> cities,
                                 Function<com.geo.rest.model.geo.City, Comparable> mapper) {
         Comparable prev = null;
-        for (com.geo.rest.model.geo.City city: cities) {
+        for (com.geo.rest.model.geo.City city : cities) {
             Comparable el = mapper.apply(city);
             if (prev != null) {
                 if (el.compareTo(prev) == -1) {

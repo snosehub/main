@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @GeoQuery
-@Schema(name="Query", description = "Object to hold city query information including sorting and pagination")
+@Schema(name = "Query", description = "Object to hold city query information including sorting and pagination")
 public class Query {
     @Schema(
             name = "Country name",

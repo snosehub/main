@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 @Component
 public class CitiesService {
 
-    private  static final int DEFAULT_PAGE = 0;
-    public static  final int DEFAULT_SIZE = 2;
+    private static final int DEFAULT_PAGE = 0;
+    public static final int DEFAULT_SIZE = 2;
 
     private final CityRepository cityRepository;
 

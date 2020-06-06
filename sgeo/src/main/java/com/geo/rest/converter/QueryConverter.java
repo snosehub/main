@@ -1,5 +1,7 @@
 /**
  * Copyright (c) 2020, Sergey Petrov
+ * <p>
+ * Required if GET is used for Query object
  */
 
 /**
