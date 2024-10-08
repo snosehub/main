@@ -1,3 +1,3 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:17-jdk-alpine
 COPY target/sgeo-*.jar /app.jar
-CMD ["/usr/bin/java", "-jar", "/app.jar"]
+CMD ["java", "-jar", "/app.jar"]

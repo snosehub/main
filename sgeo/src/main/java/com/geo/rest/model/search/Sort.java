@@ -6,10 +6,9 @@ package com.geo.rest.model.search;
 
 import com.geo.storage.model.City;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.domain.Sort.Direction;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 @Schema(name = "Query sorting")

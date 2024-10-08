@@ -4,14 +4,10 @@
 
 package com.geo.storage.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Data
 @Entity

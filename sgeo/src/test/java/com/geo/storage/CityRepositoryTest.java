@@ -5,14 +5,13 @@
 package com.geo.storage;
 
 import com.geo.storage.model.City;
+import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.Assert;
-
-import javax.inject.Inject;
 
 @SpringBootTest
 @Slf4j

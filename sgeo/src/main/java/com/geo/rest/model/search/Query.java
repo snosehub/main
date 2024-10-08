@@ -7,10 +7,9 @@ package com.geo.rest.model.search;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.geo.rest.validation.GeoQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
-import javax.validation.Valid;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
