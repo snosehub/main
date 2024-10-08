@@ -16,3 +16,6 @@ System requirements:
 Tested on
  1. ubuntu 19.10, jdk 1.8.0_241/hotspot, maven 3.6.1
  2. ubuntu 16.04, jdk 1.8.0_251/ibm j9 vm, maven 3.6.3
+ newer version
+ 3. win 11, jdk 17.0.12
+ 4. with docker, openjdk:17..
